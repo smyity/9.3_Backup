@@ -30,6 +30,7 @@ rsync -ac --exclude '.*' . /tmp/backup
 ### Решение 2
 
 [скрипт dayly_backup.sh](scripts/dayly_backup.sh)
+
 [конфигурационный файл crontab](conf/root)
 
 
