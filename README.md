@@ -36,6 +36,8 @@ rsync -ac --exclude '.*' . /tmp/backup
 
 ![](pic/PIC002.PNG)
 
+![](pic/PIC003.PNG)
+
 ---
 
 ### Задание 3
@@ -49,7 +51,7 @@ rsync -ac --exclude '.*' . /tmp/backup
 rsync -ac --bwlimit=125 --progress --exclude '.*' . pass12345@192.168.122.121:/tmp/backup
 ````
 
-![](pic/PIC003.PNG)
+![](pic/PIC004.PNG)
 
 ---
 
@@ -63,8 +65,8 @@ rsync -ac --bwlimit=125 --progress --exclude '.*' . pass12345@192.168.122.121:/t
 
 [скрипт для инкрементного резервного копирования](scripts/backup_script.sh)
 
-![](pic/PIC004.PNG)
+![](pic/PIC005.PNG)
 
 [скрипт для управления резервными копиями](scripts/recovery.sh)
 
-![](pic/PIC005.PNG)
+![](pic/PIC006.PNG)

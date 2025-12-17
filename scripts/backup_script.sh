@@ -14,32 +14,32 @@ i=$(ssh $USER@$ADDR "ls -1 "$CURRENT_DIR" | wc -l")
 if [[ $i -eq 0 ]]; then
 
     # добавление резервной копии
-    rsync -ac --exclude '.*' . $USER@$ADDR:$CURRENT_DIR/$DATE
+    rsync -ac --exclude '.*' $HOME $USER@$ADDR:$CURRENT_DIR/$DATE
     echo "создана директория $CURRENT_DIR/$DATE"
     exit 0
 elif [[ $i -lt 5 ]]; then
     # проверка изменений
     DIR_LAST=$(ssh $USER@$ADDR "ls -1 \"$CURRENT_DIR\" | tail -n 1")
-    CHANGES=$(rsync -ainc --delete --exclude '.*' --link-dest=$CURRENT_DIR/$DIR_LAST . $USER@$ADDR:$CURRENT_DIR/$DATE | grep -E '^<f|^cd|deleting')
+    CHANGES=$(rsync -ainc --delete --exclude '.*' --link-dest=$CURRENT_DIR/$DIR_LAST $HOME $USER@$ADDR:$CURRENT_DIR/$DATE | grep -E '^<f|^cd|deleting')
 
     if [[ -z $CHANGES ]]; then
         echo "изменений нет"
     else
         # добавление инкрементной резервной копии
         echo "есть изменения"
-        rsync -ac --exclude '.*' --link-dest=$CURRENT_DIR/$DIR_LAST . $USER@$ADDR:$CURRENT_DIR/$DATE
+        rsync -ac --exclude '.*' --link-dest=$CURRENT_DIR/$DIR_LAST $HOME $USER@$ADDR:$CURRENT_DIR/$DATE
         echo "создана директория $CURRENT_DIR/$DATE"
     fi
 else    
     DIR_LAST=$(ssh $USER@$ADDR "ls -1 \"$CURRENT_DIR\" | tail -n 1")
-    CHANGES=$(rsync -ainc --delete --exclude '.*' --link-dest=$CURRENT_DIR/$DIR_LAST . $USER@$ADDR:$CURRENT_DIR/$DATE | grep -E '^<f|^cd|deleting')
+    CHANGES=$(rsync -ainc --delete --exclude '.*' --link-dest=$CURRENT_DIR/$DIR_LAST $HOME $USER@$ADDR:$CURRENT_DIR/$DATE | grep -E '^<f|^cd|deleting')
 
     if [[ -z $CHANGES ]]; then
         echo "изменений нет"
     else
         # добавление инкрементной резервной копии
         echo "есть изменения"
-        rsync -ac --exclude '.*' --link-dest=$CURRENT_DIR/$DIR_LAST . $USER@$ADDR:$CURRENT_DIR/$DATE
+        rsync -ac --exclude '.*' --link-dest=$CURRENT_DIR/$DIR_LAST $HOME $USER@$ADDR:$CURRENT_DIR/$DATE
         echo "создана директория $CURRENT_DIR/$DATE"
 
         i=$(ssh $USER@$ADDR "ls -1 "$CURRENT_DIR" | wc -l")
